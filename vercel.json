@@ -2,11 +2,6 @@
   "buildCommand": "next build",
   "outputDirectory": ".next",
   "framework": "nextjs",
-  "env": {
-    "NEXT_PUBLIC_API_URL": "@fabric-store-api-url",
-    "NEXT_PUBLIC_SITE_NAME": "@fabric-store-site-name",
-    "NEXT_PUBLIC_SITE_URL": "@fabric-store-site-url"
-  },
   "headers": [
     {
       "source": "/(.*)",
