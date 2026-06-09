@@ -59,7 +59,7 @@ export default function AdminLoginClient() {
             Manage Your<br />Collection
           </h1>
           <p className="text-canvas/50 text-sm leading-relaxed max-w-xs">
-            Add, edit, and organise your full product catalog — upholstery, leather, wallcovering, panels, and more.
+            Add, edit, and organise your full product catalog — wall covering, upholstery, curtains, and tassels.
           </p>
         </div>
 

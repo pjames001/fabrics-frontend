@@ -116,13 +116,9 @@ export default function ProductsPage() {
       {/* ── Page header ─────────────────────── */}
       <div className="border-b border-border bg-canvas">
         <div className="max-w-7xl mx-auto px-6 py-12">
-          <p className="section-label mb-3">
-            {lang === 'ar' ? 'المجموعة' : 'The Collection'}
-          </p>
+          <p className="section-label mb-3">{t(ui.categories.theCollection, lang)}</p>
           <h1 className="font-display text-5xl font-light text-ink">
-            {activeCategory
-              ? getCategoryLabel(activeCategory, lang)
-              : (lang === 'ar' ? 'جميع المنتجات' : 'All Products')}
+            {activeCategory ? getCategoryLabel(activeCategory, lang) : t(ui.home.allProducts, lang)}
           </h1>
           {totalCount > 0 && (
             <p className="text-muted text-sm mt-2">
@@ -140,7 +136,7 @@ export default function ProductsPage() {
               !activeCategory ? 'border-gold text-ink font-medium' : 'border-transparent text-muted hover:text-ink'
             )}
           >
-            {lang === 'ar' ? 'الكل' : 'All'}
+            {t(ui.categories.all, lang)}
           </button>
           {CATEGORIES.map((cat) => (
             <button

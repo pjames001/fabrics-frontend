@@ -1,11 +1,11 @@
-import { Suspense } from 'react'
+import Link from 'next/link'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
-import ProductsPage from '@/components/public/ProductsPage'
+import CategoryLanding from '@/components/public/CategoryLanding'
 
 export const metadata = {
   title: 'Products',
-  description: 'Browse our full collection of premium upholstery, leather, wallcovering, panel, privacy curtain, window covering and rugs.',
+  description: 'Browse our collection of wall covering, upholstery, curtains, and tassels.',
 }
 
 export default function Page() {
@@ -13,9 +13,7 @@ export default function Page() {
     <>
       <Navbar />
       <main className="pt-18 min-h-screen">
-        <Suspense>
-          <ProductsPage />
-        </Suspense>
+        <CategoryLanding />
       </main>
       <Footer />
     </>

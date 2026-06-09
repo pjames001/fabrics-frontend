@@ -80,9 +80,9 @@ export default function AdminDashboard() {
           loading={isLoading}
         />
         <StatCard
-          label="Collaborators"
-          value={stats?.collaborators_total ?? '—'}
-          sub="Design partners"
+          label="Categories"
+          value={stats?.by_category?.length ?? '—'}
+          sub="Active categories"
           icon={Users}
           color="ink"
           loading={isLoading}
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
               {stats?.recently_added.map((product) => (
                 <Link
                   key={product.id}
-                  href={`/admin/products/${product.id}/edit`}
+                  href={`/admin/products/${product.slug}/edit`}
                   className="flex items-center gap-4 p-2 hover:bg-surface-2 transition-colors group rounded-sm"
                 >
                   {/* Thumbnail */}
@@ -180,10 +180,10 @@ export default function AdminDashboard() {
       {/* Quick actions */}
       <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { href: '/admin/products/new',  label: 'Add Product',     icon: Package },
-          { href: '/admin/products',       label: 'Manage Products', icon: Package },
-          { href: '/admin/colors',         label: 'Manage Colors',   icon: Palette },
-          { href: '/admin/collaborators',  label: 'Collaborators',   icon: Users },
+          { href: '/admin/products/new', label: 'Add Product',     icon: Package },
+          { href: '/admin/products',      label: 'Manage Products', icon: Package },
+          { href: '/admin/colors',        label: 'Manage Colors',   icon: Palette },
+          { href: '/',                    label: 'View Store',       icon: ArrowRight },
         ].map((a) => (
           <Link
             key={a.href}

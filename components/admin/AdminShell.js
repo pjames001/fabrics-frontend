@@ -13,7 +13,6 @@ const NAV = [
   { href: '/admin',              label: 'Dashboard',      icon: LayoutDashboard, exact: true },
   { href: '/admin/products',     label: 'Products',       icon: Package },
   { href: '/admin/colors',       label: 'Colors',         icon: Palette },
-  { href: '/admin/collaborators',label: 'Collaborators',  icon: Users },
 ]
 
 function SidebarLink({ href, label, icon: Icon, exact }) {

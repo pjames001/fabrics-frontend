@@ -3,15 +3,14 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, Globe } from 'lucide-react'
-import { useLang, ui, t } from '@/contexts/LangContext'
+import { useLang, t, ui } from '@/contexts/LangContext'
 import { cn, CATEGORIES } from '@/lib/utils'
 
 export default function Navbar() {
-  const pathname      = usePathname()
+  const pathname = usePathname()
   const { lang, setLang } = useLang()
-  const [open,      setOpen]      = useState(false)
-  const [scrolled,  setScrolled]  = useState(false)
-  const [catOpen,   setCatOpen]   = useState(false)
+  const [open,    setOpen]    = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -22,7 +21,14 @@ export default function Navbar() {
   const navLinks = [
     { href: '/',         label: t(ui.nav.home, lang) },
     { href: '/products', label: t(ui.nav.products, lang), hasDrop: true },
+    { href: '/about',    label: t(ui.nav.about, lang) },
+    { href: '/services', label: t(ui.nav.services, lang) },
+    { href: '/projects', label: t(ui.nav.projects, lang) },
+    { href: '/clients',  label: t(ui.nav.clients, lang) },
+    { href: '/contact',  label: t(ui.nav.contact, lang) },
   ]
+
+  const isProductsActive = pathname.startsWith('/products')
 
   return (
     <header
@@ -37,34 +43,32 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="font-display text-2xl font-light tracking-wide text-ink hover:text-gold transition-colors"
+          className="font-display text-2xl font-light tracking-wide text-gold hover:text-ink transition-colors"
         >
-          Fabric<span className="text-gold">·</span>Store
+          ARTIA DESIGN
         </Link>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map(({ href, label, hasDrop }) =>
             hasDrop ? (
-              <div key={href} className="relative group">
+              <div key={href} className="relative group flex items-center">
                 <Link
                   href={href}
                   className={cn(
                     'text-sm tracking-wide transition-colors pb-1',
-                    pathname.startsWith('/products')
-                      ? 'text-ink border-b border-gold'
-                      : 'text-muted hover:text-ink'
+                    isProductsActive ? 'text-ink border-b border-gold' : 'text-muted hover:text-ink'
                   )}
                 >
                   {label}
                 </Link>
                 {/* Mega-dropdown */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-64 bg-surface border border-border shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-56 bg-surface border border-border shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                   <div className="p-2">
                     {CATEGORIES.map((cat) => (
                       <Link
                         key={cat.value}
-                        href={`/products?category=${cat.value}`}
+                        href={`/products/${cat.slug}`}
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-muted hover:text-ink hover:bg-surface-2 transition-colors"
                       >
                         <span className="text-base">{cat.icon}</span>
@@ -93,17 +97,15 @@ export default function Navbar() {
 
         {/* Right controls */}
         <div className="flex items-center gap-4">
-          {/* Language toggle */}
           <button
             onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
             className="flex items-center gap-1.5 text-sm text-muted hover:text-ink transition-colors"
             aria-label="Toggle language"
           >
             <Globe className="h-4 w-4" />
-            <span className="hidden sm:inline">{lang === 'en' ? 'عربي' : 'EN'}</span>
+            <span className="hidden sm:inline">{t(ui.nav.langToggle, lang)}</span>
           </button>
 
-          {/* Mobile hamburger */}
           <button
             className="md:hidden p-1 text-ink"
             onClick={() => setOpen((o) => !o)}
@@ -132,14 +134,26 @@ export default function Navbar() {
             {CATEGORIES.map((cat) => (
               <Link
                 key={cat.value}
-                href={`/products?category=${cat.value}`}
+                href={`/products/${cat.slug}`}
                 className="block py-1.5 text-xs text-muted hover:text-ink"
                 onClick={() => setOpen(false)}
               >
+                <span className="mr-2">{cat.icon}</span>
                 {lang === 'ar' ? cat.label.ar : cat.label.en}
               </Link>
             ))}
           </div>
+          {[
+            { href: '/about',    label: t(ui.nav.about, lang) },
+            { href: '/services', label: t(ui.nav.services, lang) },
+            { href: '/projects', label: t(ui.nav.projects, lang) },
+            { href: '/clients',  label: t(ui.nav.clients, lang) },
+            { href: '/contact',  label: t(ui.nav.contact, lang) },
+          ].map(({ href, label }) => (
+            <Link key={href} href={href} className="block py-2 text-sm text-muted hover:text-ink" onClick={() => setOpen(false)}>
+              {label}
+            </Link>
+          ))}
         </div>
       </div>
     </header>
